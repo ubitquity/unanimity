@@ -25,3 +25,9 @@ venv.bak/
 
 # Database
 *.db
+
+# IDE
+.idea/*
+
+# Vagrant
+.vagrant
