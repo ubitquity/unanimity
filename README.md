@@ -40,3 +40,27 @@ Make sure _geth_ is running and all the required settings are provided in the co
 Then type simply run server using `python manage.py runserver` command in the main project directory. It will be available at [127.0.0.1:8000](http://127.0.0.1:8000/) by default, where the detailed API documentation should appear.
 
 ![(View of API documentation)](docs/static/api.png)
+
+#### Setup from scratch
+
+Assuming you have ubuntu 18.04, run commands:
+
+    sudo apt update
+    sudo apt install python3-pip
+    sudo apt install build-essential libssl-dev
+    sudo apt install autoconf
+    sudo apt install libtool
+    sudo apt install libffi-dev
+    sudo apt install libgmp-dev
+    sudo apt install libsecp256k1-dev
+    sudo apt install pkg-config
+    sudo pip3 install -r requirements.txt
+    
+The last step - make sure that you are in the directory with code, and the `requirements.txt` is the right path.
+
+After that run:
+
+    python manage.py migrate
+    python manage.py runserver 0:8080
+    
+This will run a development instance of your application.
