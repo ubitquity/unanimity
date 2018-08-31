@@ -16,7 +16,8 @@ from ..settings import INFURA_URL, KEYFILE, PASSWORD, CHAIN_ID, ACCOUNT
 class Contract:
     def __init__(self):
         self.w3 = Web3(HTTPProvider(INFURA_URL))
-        self.nonce = self.w3.eth.getTransactionCount(ACCOUNT, "pending")
+        account = self.w3.toChecksumAddress(ACCOUNT)
+        self.nonce = self.w3.eth.getTransactionCount(account, "pending")
         self.w3.middleware_stack.inject(geth_poa_middleware, layer=0)
         self.content = ''
 
@@ -67,7 +68,6 @@ class Contract:
             )
             content = contract_instance.get()
             return json.loads(content)
-
 
     def deploy(self):
         self.w3 = Web3()
