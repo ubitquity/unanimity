@@ -64,3 +64,84 @@ After that run:
     python manage.py runserver 0:8080
     
 This will run a development instance of your application.
+
+
+##### Geth setup
+
+Do a geth installation:
+
+    sudo add-apt-repository -y ppa:ethereum/ethereum
+    sudo apt-get update
+    sudo apt-get install ethereum
+    sudo apt-get install solc
+    
+Create a new geth account:
+
+    geth account new
+    
+Remember the password - it is the `PASSWORD` setting in settings.py
+You should also see something like this: `2ee833f885a517d557c204b78a2654f1e5020239`
+
+This is `ACCOUNT` setting in settings.py, but prepend '0x' to it, so:
+
+ACCOUNT = '0x2ee833f885a517d557c204b78a2654f1e5020239'
+
+Run:
+    
+    geth account list
+    
+and pick a key file path from there:
+
+    keystore:///home/vagrant/.ethereum/keystore/UTC--2018-08-31T11-38-42.406701178Z--2ee833f885a517d557c204b78a2654f1e5020239
+    
+Then the KEYFILE setting in settings.py is:
+
+    /home/vagrant/.ethereum/keystore/UTC--2018-08-31T11-38-42.406701178Z--2ee833f885a517d557c204b78a2654f1e5020239
+
+As metnioned earlier in the README - it is good to use test network for testing, this can be achieved by using `--rinkeby` attribute in the 
+get run.
+
+Also - in infura change api to `rinkeby`, eg.: rinkeby.infura.io/v3/909xxxxxxxxxxxxxxxxx
+
+In the end your settings should look like this:
+
+**PRODUCTION**
+
+INFURA_URL = 'https://mainnet.infura.io/v3/909xxxxxxxxxxxxxxxxx'
+KEYFILE = '/home/vagrant/.ethereum/keystore/UTC--2018-08-31T11-38-42.406701178Z--2ee833f885a517d557c204b78a2654f1e5020239'
+PASSWORD = 'XXXXXXXXX'
+CHAIN_ID = 1
+ACCOUNT = '0x2eexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+**TEST**
+
+INFURA_URL = 'https://rinkeby.infura.io/v3/909xxxxxxxxxxxxxxxxx'
+KEYFILE = '/home/vagrant/.ethereum/keystore/UTC--2018-08-31T11-38-42.406701178Z--2ee833f885a517d557c204b78a2654f1e5020239'
+PASSWORD = 'XXXXXXXXX'
+CHAIN_ID = 4
+ACCOUNT = '0x2eexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+with 
+
+    geth --rinkeby
+    
+running.
+
+As for `CHAIN_ID`:
+
+    0: Olympic, Ethereum public pre-release testnet
+    1: Frontier, Homestead, Metropolis, the Ethereum public main network
+    1: Classic, the (un)forked public Ethereum Classic main network, chain ID 61
+    1: Expanse, an alternative Ethereum implementation, chain ID 2
+    2: Morden, the public Ethereum testnet, now Ethereum Classic testnet
+    3: Ropsten, the public cross-client Ethereum testnet
+    4: Rinkeby, the public Geth PoA testnet
+    8: Ubiq, the public Gubiq main network with flux difficulty chain ID 8
+    42: Kovan, the public Parity PoA testnet
+    77: Sokol, the public POA Network testnet
+    99: Core, the public POA Network main network
+    7762959: Musicoin, the music blockchain
+    61717561: Aquachain, ASIC resistant chain
+    [Other]: Could indicate that your connected to a local development test network.
+    
+So in case of testing - you should have 4 set up, in case of production 1.

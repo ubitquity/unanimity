@@ -10,6 +10,7 @@ from .models import BillOfSale, ApplicationForRegistration, SecurityGuarantee
 from .serializers import BillOfSaleSerializer, ApplicationForRegistrationSerializer, SecurityGuaranteeSerializer
 from .utils import Contract
 
+
 class BillOfSaleListView(generics.ListCreateAPIView):
     """
     get:
@@ -29,6 +30,7 @@ class BillOfSaleListView(generics.ListCreateAPIView):
         hsh = bos_contract.deploy()
         serializer.save(tx_hash = hsh)
 
+
 class DocumentOnchainView(APIView):
     def get(self, request, tx_hash):
         """
@@ -40,6 +42,7 @@ class DocumentOnchainView(APIView):
             if contract_stored:
                 return Response(contract_stored)
             return Response({})
+
 
 class ApplicationForRegistrationListView(generics.ListCreateAPIView):
     """
@@ -58,7 +61,8 @@ class ApplicationForRegistrationListView(generics.ListCreateAPIView):
         afr_contract.content = copy.copy(serializer.validated_data)
         afr_contract.hash()
         hsh = afr_contract.deploy()
-        serializer.save(tx_hash = hsh)
+        serializer.save(tx_hash=hsh)
+
 
 class SecurityGuaranteeListView(generics.ListCreateAPIView):
     """
