@@ -145,3 +145,38 @@ As for `CHAIN_ID`:
     [Other]: Could indicate that your connected to a local development test network.
     
 So in case of testing - you should have 4 set up, in case of production 1.
+
+
+##### File Upload
+
+1. Make sure you run the migrations:
+
+    python3 manage.py migrate
+    
+2. Install paramiko (SSH connection handling):
+
+    sudo -H pip3 install paramiko  
+    
+File Upload is done in two steps:
+
+* first you need to upload file under POST <host>/files/
+* in the response you will get the needed `file_hash`
+* at this stage there will be an ssh connection triggered and the file metadata will reach the ubitquit.io servers
+* you can use `file_hash` now in your contracts
+
+3. Setup SSH credentials, as we do not want to store SSH credentials in the repository, do:
+
+  * create a file in the project root dir: ssh-credentials (`touch ssh-credentials`)
+  * place there a json with credentials (you can use `nano` editor -> `nano ssh-credentials`):
+  
+        {
+            "username": "{username}",
+            "password": "{password}"
+        }
+        
+  * ask Nathan or Sam for the credentials
+  
+4. After all of it is done - run:
+
+    python manage.py runserver 0:8080
+    

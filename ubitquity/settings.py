@@ -99,9 +99,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#
+# Document storage
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+
+UBITQUITY_HOST = '45.32.1.3'
 
 # Blockchain-related config
 

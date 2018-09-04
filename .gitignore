@@ -35,3 +35,6 @@ venv.bak/
 # Media
 
 media/*
+
+# SSH
+ssh-credentials
