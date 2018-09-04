@@ -31,3 +31,7 @@ venv.bak/
 
 # Vagrant
 .vagrant
+
+# Media
+
+media/*
