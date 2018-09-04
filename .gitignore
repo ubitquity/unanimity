@@ -31,3 +31,10 @@ venv.bak/
 
 # Vagrant
 .vagrant
+
+# Media
+
+media/*
+
+# SSH
+ssh-credentials

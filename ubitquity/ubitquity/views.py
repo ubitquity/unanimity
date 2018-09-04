@@ -6,8 +6,11 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import copy
-from .models import BillOfSale, ApplicationForRegistration, SecurityGuarantee
-from .serializers import BillOfSaleSerializer, ApplicationForRegistrationSerializer, SecurityGuaranteeSerializer
+
+from ubitquity.ubitquity.ssh_client import SSHClient
+from .models import BillOfSale, ApplicationForRegistration, SecurityGuarantee, Document
+from .serializers import BillOfSaleSerializer, ApplicationForRegistrationSerializer, SecurityGuaranteeSerializer, \
+    DocumentCreateSerializer, DocumentSerializer
 from .utils import Contract
 
 
@@ -81,3 +84,24 @@ class SecurityGuaranteeListView(generics.ListCreateAPIView):
         g_contract.hash()
         hsh = g_contract.deploy()
         serializer.save(tx_hash = hsh)
+
+
+class DocumentCreateView(generics.CreateAPIView):
+    queryset = Document.objects.all()
+    serializer_class = DocumentCreateSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        # push the serialized data to ubitquit servers
+        client = SSHClient()
+        data = DocumentSerializer(instance=serializer.instance).data
+        client.put_data(data=data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class DocumentView(generics.RetrieveAPIView):
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
