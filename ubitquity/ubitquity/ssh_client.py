@@ -36,6 +36,6 @@ class SSHClient(object):
         self.client.exec_command("echo '{}' > {}/{}".format(
             json_data,
             settings.UBITQUITY_FILE_PATH,
-            "{}.json".format(data['file_hash'])
+            "uuid_{}.json".format(data['uuid_name'].split('.')[0])
         ))
         self.close()
