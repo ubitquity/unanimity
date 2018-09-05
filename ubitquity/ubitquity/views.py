@@ -86,12 +86,12 @@ class SecurityGuaranteeListView(generics.ListCreateAPIView):
         serializer.save(tx_hash = hsh)
 
 
-class DocumentCreateView(generics.CreateAPIView):
+class DocumentListCreateView(generics.ListCreateAPIView):
     queryset = Document.objects.all()
-    serializer_class = DocumentCreateSerializer
+    serializer_class = DocumentSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        serializer = DocumentCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)

@@ -104,6 +104,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 UBITQUITY_HOST = '45.32.1.3'
+UBITQUITY_FILE_PATH = '/var/www/html/deeds/aicdocs'
 
 # Blockchain-related config
 

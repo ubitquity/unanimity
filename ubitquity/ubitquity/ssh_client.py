@@ -33,8 +33,9 @@ class SSHClient(object):
     def put_data(self, data):
         self.connect()
         json_data = json.dumps(data)
-        self.client.exec_command("echo '{}' > /var/www/html/aicdocs/{}".format(
+        self.client.exec_command("echo '{}' > {}/{}".format(
             json_data,
-            "{}.json".format(data['file_hash'])
+            settings.UBITQUITY_FILE_PATH,
+            "uuid_{}.json".format(data['uuid_name'].split('.')[0])
         ))
         self.close()
