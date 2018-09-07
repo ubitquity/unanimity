@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class BillOfSale(models.Model):
     # Name, address, and nationality  of person title is being issued to
     transferee_name = models.CharField(max_length=50)
@@ -28,6 +29,7 @@ class BillOfSale(models.Model):
 
     tx_hash = models.CharField(max_length=70)
     file_hash = models.CharField(max_length=64, null=True, blank=True)
+
 
 class ApplicationForRegistration(models.Model):
     # AC-8050: Application for Aircraft Registration
@@ -54,6 +56,7 @@ class ApplicationForRegistration(models.Model):
 
     tx_hash = models.CharField(max_length=70)
     file_hash = models.CharField(max_length=64, null=True, blank=True)
+
 
 class SecurityGuarantee(models.Model):
     # 8050-98: Aircraft Security Agreement 

@@ -3,15 +3,14 @@ contracts. It is univeral in meaning there are no hardcoded
 field names and it can store securely any serializable
 Python dictionary."""
 
-import json, web3, os, hashlib, time
-from web3 import Web3, HTTPProvider, TestRPCProvider
-from web3 import EthereumTesterProvider
+import hashlib
+import json
+from web3 import Web3, HTTPProvider
 from web3.contract import ConciseContract
-from web3 import Account
 from solc import compile_source
 from web3.middleware import geth_poa_middleware
-from ethereum.transactions import Transaction
 from ..settings import INFURA_URL, KEYFILE, PASSWORD, CHAIN_ID, ACCOUNT
+
 
 class Contract:
     def __init__(self):

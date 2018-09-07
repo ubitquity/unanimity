@@ -98,7 +98,7 @@ Then the KEYFILE setting in settings.py is:
 
     /home/vagrant/.ethereum/keystore/UTC--2018-08-31T11-38-42.406701178Z--2ee833f885a517d557c204b78a2654f1e5020239
 
-As metnioned earlier in the README - it is good to use test network for testing, this can be achieved by using `--rinkeby` attribute in the 
+As mentioned earlier in the README - it is good to use test network for testing, this can be achieved by using `--rinkeby` attribute in the 
 get run.
 
 Also - in infura change api to `rinkeby`, eg.: rinkeby.infura.io/v3/909xxxxxxxxxxxxxxxxx

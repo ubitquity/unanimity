@@ -108,8 +108,8 @@ UBITQUITY_FILE_PATH = '/var/www/html/deeds/aicdocs'
 
 # Blockchain-related config
 
-INFURA_URL = ''
-KEYFILE = ''
-PASSWORD = ''
+INFURA_URL = os.getenv('INFURA_URL')
+KEYFILE = os.getenv('KEYFILE')
+PASSWORD = os.getenv('PASSWORD')
 CHAIN_ID = 4
-ACCOUNT = ''
+ACCOUNT = os.getenv('ACCOUNT')
