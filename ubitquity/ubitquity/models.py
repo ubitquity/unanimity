@@ -103,3 +103,18 @@ class Document(models.Model):
 
     def get_hash(self):
         return hashlib.sha256(self.file.read()).hexdigest()
+
+
+class DocumentOnChainBill(models.Model):
+    file_hash = models.CharField(max_length=64)
+    tx_hash = models.CharField(max_length=70)
+
+
+class DocumentOnChainRegistration(models.Model):
+    file_hash = models.CharField(max_length=64)
+    tx_hash = models.CharField(max_length=70)
+
+
+class DocumentOnChainGuarantee(models.Model):
+    file_hash = models.CharField(max_length=64)
+    tx_hash = models.CharField(max_length=70)

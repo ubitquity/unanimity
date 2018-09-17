@@ -1,4 +1,5 @@
-from ubitquity.ubitquity.models import BillOfSale, ApplicationForRegistration, SecurityGuarantee, Document
+from ubitquity.ubitquity.models import BillOfSale, ApplicationForRegistration, SecurityGuarantee, Document, \
+    DocumentOnChainBill, DocumentOnChainRegistration, DocumentOnChainGuarantee
 from rest_framework import serializers
 
 
@@ -43,3 +44,24 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ('id', 'file', 'original_name', 'uuid_name', 'created_at', 'file_hash')
+
+
+class DocumentOnChainBillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DocumentOnChainBill
+        fields = ('id', 'file_hash')
+        read_only_fields = ('tx_hash',)
+
+
+class DocumentOnChainRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DocumentOnChainRegistration
+        fields = ('id', 'file_hash')
+        read_only_fields = ('tx_hash',)
+
+
+class DocumentOnChainGuaranteeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DocumentOnChainGuarantee
+        fields = ('id', 'file_hash')
+        read_only_fields = ('tx_hash',)

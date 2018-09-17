@@ -8,10 +8,45 @@ from rest_framework.response import Response
 import copy
 
 from ubitquity.ubitquity.ssh_client import SSHClient
-from .models import BillOfSale, ApplicationForRegistration, SecurityGuarantee, Document
+from .models import BillOfSale, ApplicationForRegistration, SecurityGuarantee, Document, \
+    DocumentOnChainBill, DocumentOnChainGuarantee, DocumentOnChainRegistration
 from .serializers import BillOfSaleSerializer, ApplicationForRegistrationSerializer, SecurityGuaranteeSerializer, \
-    DocumentCreateSerializer, DocumentSerializer
+    DocumentCreateSerializer, DocumentSerializer, DocumentOnChainBillSerializer, DocumentOnChainGuaranteeSerializer, \
+    DocumentOnChainRegistrationSerializer
 from .utils import Contract
+
+
+class ContractMixin(object):
+    def perform_create(self, serializer):
+        contract = Contract()
+        contract.content = copy.copy(serializer.validated_data)
+        contract.hash()
+        hsh = contract.deploy()
+        serializer.save(tx_hash=hsh)
+
+
+class SimplifiedBillOfSaleListView(ContractMixin, generics.ListCreateAPIView):
+    """
+    Take only a file hash
+    """
+    queryset = DocumentOnChainBill.objects.all()
+    serializer_class = DocumentOnChainBillSerializer
+
+
+class SimplifiedGuaranteeListView(ContractMixin, generics.ListCreateAPIView):
+    """
+    Take only a file hash
+    """
+    queryset = DocumentOnChainGuarantee.objects.all()
+    serializer_class = DocumentOnChainGuaranteeSerializer
+
+
+class SimplifiedRegistrationListView(ContractMixin, generics.ListCreateAPIView):
+    """
+    Take only a file hash
+    """
+    queryset = DocumentOnChainBill.objects.all()
+    serializer_class = DocumentOnChainRegistrationSerializer
 
 
 class BillOfSaleListView(generics.ListCreateAPIView):
