@@ -49,19 +49,19 @@ class DocumentSerializer(serializers.ModelSerializer):
 class DocumentOnChainBillSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentOnChainBill
-        fields = ('id', 'file_hash')
+        fields = ('id', 'file_hash', 'tx_hash')
         read_only_fields = ('tx_hash',)
 
 
 class DocumentOnChainRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentOnChainRegistration
-        fields = ('id', 'file_hash')
+        fields = ('id', 'file_hash', 'tx_hash')
         read_only_fields = ('tx_hash',)
 
 
 class DocumentOnChainGuaranteeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentOnChainGuarantee
-        fields = ('id', 'file_hash')
+        fields = ('id', 'file_hash', 'tx_hash')
         read_only_fields = ('tx_hash',)

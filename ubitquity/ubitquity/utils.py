@@ -15,8 +15,7 @@ from ..settings import INFURA_URL, KEYFILE, PASSWORD, CHAIN_ID, ACCOUNT
 class Contract:
     def __init__(self):
         self.w3 = Web3(HTTPProvider(INFURA_URL))
-        account = self.w3.toChecksumAddress(ACCOUNT)
-        self.nonce = self.w3.eth.getTransactionCount(account, "pending")
+        self.account = self.w3.toChecksumAddress(ACCOUNT)
         self.w3.middleware_stack.inject(geth_poa_middleware, layer=0)
         self.content = ''
 
@@ -69,6 +68,7 @@ class Contract:
             return json.loads(content)
 
     def deploy(self):
+        nonce = self.w3.eth.getTransactionCount(self.account, "pending")
         self.w3 = Web3()
         contract_interface = self.contractInterface()
         # Deploy contract and get transaction hash
@@ -78,14 +78,13 @@ class Contract:
           encrypted_key = keyfile.read()
           self.w3.eth.enable_unaudited_features()
           private_key = self.w3.eth.account.decrypt(encrypted_key, PASSWORD)
-          # acct = Account.privateKeyToAccount(private_key)
           transaction = {
             'data': data,
             'gas': 1000000,
             'chainId': CHAIN_ID,
-            'gasPrice': self.w3.toWei('121', 'gwei'),
+            'gasPrice': self.w3.toWei('40', 'gwei'),
             'value': 0,
-            'nonce': self.nonce,
+            'nonce': nonce,
             'to': '',
           }
           signed = self.w3.eth.account.signTransaction(transaction, private_key=private_key)

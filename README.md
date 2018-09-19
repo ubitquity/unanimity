@@ -180,3 +180,64 @@ File Upload is done in two steps:
 
     python manage.py runserver 0:8080
     
+
+# Environment setup
+
+Install docker-compose: 
+
+    sudo -H pip3 install docker-compose
+
+Careful! Read the note about keyfile first.
+
+Run:
+
+    docker-compose build 
+        
+The above command will build your container.
+
+Create the file in the project root dir:
+
+    docker-compose-prod.yaml
+    
+Add following content to it
+
+    version: '2'
+    services:
+      app-api:
+        environment:
+          - INFURA_URL=
+          - KEYFILE=
+          - PASSWORD=
+          - CHAIN_ID=
+          - ACCOUNT=
+          - SSH_USERNAME=
+          - SSH_PASSWORD=
+          - UBITQUITY_HOST=45.32.1.3
+          - UBITQUITY_FILE_PATH=/var/www/html/deeds/aicdocs
+          
+
+Fill the empty settings with proper values (this is extremely important).
+The `UBITQUITY_` prefixed environment variables can be as they are.
+
+
+> Note: keyfile
+
+> Keyfile is private at should be known only to the owner. This is not included in the repository. When you create
+your geth account (on rinkeby on any other network) - after listing the accounts you can see the key file path.
+Copy this key to the root folder of the application and run `docker-compose build`, later on add env variable with PATH
+as follows: KEYFILE=/app/UTC--2018-09-06T16-44-51....
+
+> !IMPORTANT, be very careful with the key and working with version control system (git), never push your key to the 
+repository.
+
+After settings all of the variables, run:
+
+    > docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml up -d
+
+You are ready to go. Go to the browser and type: <host_ip>:8080/ 
+
+## Tips
+
+To enter the docker container run:
+
+    docker-compose exec app-api bash

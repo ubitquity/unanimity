@@ -45,7 +45,7 @@ class SimplifiedRegistrationListView(ContractMixin, generics.ListCreateAPIView):
     """
     Take only a file hash
     """
-    queryset = DocumentOnChainBill.objects.all()
+    queryset = DocumentOnChainRegistration.objects.all()
     serializer_class = DocumentOnChainRegistrationSerializer
 
 
@@ -66,7 +66,7 @@ class BillOfSaleListView(generics.ListCreateAPIView):
         bos_contract.content = copy.copy(serializer.validated_data)
         bos_contract.hash()
         hsh = bos_contract.deploy()
-        serializer.save(tx_hash = hsh)
+        serializer.save(tx_hash=hsh)
 
 
 class DocumentOnchainView(APIView):

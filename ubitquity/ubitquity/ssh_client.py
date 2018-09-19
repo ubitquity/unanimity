@@ -10,25 +10,17 @@ class SSHClient(object):
     def __init__(self):
         self.client = ParamikoSSHClient()
         self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.credentials = {}
+        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     def connect(self):
-        self.get_credentials()
         self.client.connect(
             hostname=settings.UBITQUITY_HOST,
-            username=self.credentials.get('username'),
-            password=self.credentials.get('password'),
+            username=settings.SSH_USERNAME,
+            password=settings.SSH_PASSWORD,
         )
 
     def close(self):
         self.client.close()
-
-    def get_credentials(self):
-        if self.credentials:
-            return self.credentials
-        with open('ssh-credentials', 'rb') as f:
-            self.credentials = json.loads(f.read())
-        return self.credentials
 
     def put_data(self, data):
         self.connect()
