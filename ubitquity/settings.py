@@ -103,13 +103,20 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
-UBITQUITY_HOST = '45.32.1.3'
-UBITQUITY_FILE_PATH = '/var/www/html/deeds/aicdocs'
+STATIC_ROOT = '/static/'
+
+UBITQUITY_HOST = os.getenv('UBITQUITY_HOST', '45.32.1.3')
+UBITQUITY_FILE_PATH = os.getenv('UBITQUITY_FILE_PATH', '/var/www/html/deeds/aicdocs')
 
 # Blockchain-related config
 
 INFURA_URL = os.getenv('INFURA_URL')
 KEYFILE = os.getenv('KEYFILE')
 PASSWORD = os.getenv('PASSWORD')
-CHAIN_ID = 4
+CHAIN_ID = int(os.getenv('CHAIN_ID', 4))
 ACCOUNT = os.getenv('ACCOUNT')
+
+# Ubitquity ssh related settings
+
+SSH_USERNAME = os.getenv('SSH_USERNAME')
+SSH_PASSWORD = os.getenv('SSH_PASSWORD')
