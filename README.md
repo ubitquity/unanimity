@@ -161,7 +161,7 @@ File Upload is done in two steps:
 
 * first you need to upload file under POST <host>/files/
 * in the response you will get the needed `file_hash`
-* at this stage there will be an ssh connection triggered and the file metadata will reach the ubitquit.io servers
+* at this stage there will be an ssh connection triggered and the file metadata will reach the ubitquity.io servers
 * you can use `file_hash` now in your contracts
 
 3. Setup SSH credentials, as we do not want to store SSH credentials in the repository, do:
@@ -236,8 +236,28 @@ After settings all of the variables, run:
 
 You are ready to go. Go to the browser and type: <host_ip>:8080/ 
 
-## Tips
+## Entering Docker Container
 
 To enter the docker container run:
 
     docker-compose exec app-api bash
+    
+## To switch between Testnet in Docker to Production ("mainnet")
+
+in the root dir you have:
+```docker-compose-prod-settings.yaml
+docker-composer-prod.yaml```
+
+Names are confusing sorry for that - just rush
+
+docker-composer-prod.yaml -> testnet settings
+docker-compose-prod-settings.yaml -> prod settings
+
+now you need to run two commands:
+```sudo docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml stop```
+
+This will stop the current service, and:
+
+```sudo docker-compose -f docker-compose.yaml -f docker-compose-prod-settings.yaml up -d```
+
+... and vice-versa. You can simply switch testnet with mainnet
