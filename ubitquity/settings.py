@@ -121,3 +121,7 @@ ACCOUNT = os.getenv('ACCOUNT')
 SSH_USERNAME = os.getenv('SSH_USERNAME')
 SSH_PASSWORD = os.getenv('SSH_PASSWORD')
 SSH_ENABLED = os.getenv('SSH_ENABLED', False)  # default to false
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ()
+}
