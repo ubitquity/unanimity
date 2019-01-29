@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2bd-i9tl$z$kv$86o@w9q!(r_xv8scmbv^&%0tmo=&5&#qi2rk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
@@ -120,3 +120,4 @@ ACCOUNT = os.getenv('ACCOUNT')
 
 SSH_USERNAME = os.getenv('SSH_USERNAME')
 SSH_PASSWORD = os.getenv('SSH_PASSWORD')
+SSH_ENABLED = os.getenv('SSH_ENABLED', False)  # default to false
