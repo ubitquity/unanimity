@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^onchain/(?P<tx_hash>.+)/$', DocumentOnchainView.as_view()),
     url(r'^files/$', DocumentListCreateView.as_view()),
     url(r'^files/(?P<pk>.+)/$', DocumentView.as_view()),
-    url(r'', include_docs_urls(title='Ubitquity Aircraft')),
+    url(r'', include_docs_urls(title='Ubitquity API')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
