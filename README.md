@@ -174,7 +174,7 @@ File Upload is done in two steps:
             "password": "{password}"
         }
         
-  * ask Nathan or Sam for the credentials
+  * ask System Administrator for the login credentials (username and password)
   
 4. After all of it is done - run:
 
