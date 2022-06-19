@@ -99,14 +99,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Document storage
+# Document storage. Change the UBITQUITY_HOST to your IP address. Change UBITQUITY_FILE_PATH to your organization's server path.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
 STATIC_ROOT = '/static/'
 
 UBITQUITY_HOST = os.getenv('UBITQUITY_HOST', '45.32.1.3')
-UBITQUITY_FILE_PATH = os.getenv('UBITQUITY_FILE_PATH', '/var/www/html/deeds/aicdocs')
+UBITQUITY_FILE_PATH = os.getenv('UBITQUITY_FILE_PATH', '/var/www/html/unanimity/folder')
 
 # Blockchain-related config
 
