@@ -1,5 +1,5 @@
 #### Overview
-v1.2 API utilizes blockchain and off-blockchain data storage. The blockchain side enables users to ensure the authenticity of information related to real estate and aviation title, in particular its current ownership and all the historical transactions. In addition, not encrypted metadata regarding transactions, among others contents of all the formulars, are stored in a centralized database.
+unaninimity (version 1.2) API and Platform utilizes blockchain and off-blockchain data storage. The blockchain side enables users to ensure the authenticity of information related to real estate and aviation title, in particular its current ownership and all the historical transactions. In addition, not encrypted metadata regarding transactions, among others contents of all the formulars, are stored in a centralized database.
 
 The structure of the database intentionally doesn't make use of relations to enable easy switch to decentalized storage (such as BitTorrent network, [StorJ](https://storj.io/), [FileCoin](https://filecoin.io/) etc.), in case it will be recommended in the future.
 
