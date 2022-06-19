@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class BillOfSale(models.Model):
-    # Name, address, and nationality  of person title is being issued to
+    # Name, address, and nationality of person title is being issued to
     transferee_name = models.CharField(max_length=50)
     transferee_address = models.CharField(max_length=100)
     transferee_nationality = models.CharField(max_length=30)
@@ -16,9 +16,9 @@ class BillOfSale(models.Model):
     transferor_address = models.CharField(max_length=100, null=True, blank=True)
     transferor_nationality = models.CharField(max_length=30, null=True, blank=True)
 
-    # Make and model of aircraft, date of aircraft manufacture,
+    # Make and model of aircraft, date of aircraft manufacturer,
     # Date of last aircraft maintenance, manufacturer serial number,
-    # aircraft registration number
+    # title registration number
     manufacturer_and_model = models.CharField(max_length=100)
     manufactured = models.DateField()
     last_maintenance = models.DateField()
@@ -32,7 +32,7 @@ class BillOfSale(models.Model):
 
 
 class ApplicationForRegistration(models.Model):
-    # AC-8050: Application for Aircraft Registration
+    # AC-8050: Application for Title Registration
     registration_number = models.CharField(max_length=50)
     manufacturer_and_model = models.CharField(max_length=100)
     serial_number = models.CharField(max_length=50)
