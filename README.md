@@ -1,10 +1,10 @@
 #### Overview
-v1.1 API utilizes blockchain and off-blockchain data storage. Blockchain side enables users to ensure the authenticity of information related to aircrafts and real estate title, in particular its' current ownership and all the historical transactions. In addition, not encrypted metadata regarding transactions, among others contents of all the formulars, are stored in a centralized database.
+v1.1 API utilizes blockchain and off-blockchain data storage. The blockchain side enables users to ensure the authenticity of information related to aircrafts and real estate title, in particular its current ownership and all the historical transactions. In addition, not encrypted metadata regarding transactions, among others contents of all the formulars, are stored in a centralized database.
 
-Stucture of the database intentionally doesn't make use of relations to enable easy switch to decentalized storage (such as BitTorrent network, [StorJ](https://storj.io/), [FileCoin](https://filecoin.io/) etc.), in case it will be recommended in the future.
+The structure of the database intentionally doesn't make use of relations to enable easy switch to decentalized storage (such as BitTorrent network, [StorJ](https://storj.io/), [FileCoin](https://filecoin.io/) etc.), in case it will be recommended in the future.
 
 ##### Blockchain contract storage
-Fingerprints of all the fields from particular formulars are stored in [Ethereum](https://www.ethereum.org/) blockchain using smart contract writen in [Solidity language](https://solidity.readthedocs.io/en/v0.4.23/). They are generated using [SHA-224](https://en.wikipedia.org/wiki/SHA-2) cryptographic hash function, thus even a small change in the message will result in a mostly different hash, due to the [avalanche effect](https://en.wikipedia.org/wiki/Avalanche_effect). Example static content of contract stored in blockchain is presented below.
+Fingerprints of all the fields from particular formulars are stored in [Ethereum](https://www.ethereum.org/) blockchain using smart contract written in [Solidity language](https://solidity.readthedocs.io/en/v0.4.23/). They are generated using [SHA-224](https://en.wikipedia.org/wiki/SHA-2) cryptographic hash function, thus even a small change in the message will result in a mostly different hash, due to the [avalanche effect](https://en.wikipedia.org/wiki/Avalanche_effect). Example static content of contract stored in blockchain is presented below.
 ```json
 {
    "transferee_name":"1123c599095afde714bd13b6457c482f77fa64a4fe988e2b3eb57750",
@@ -21,16 +21,16 @@ Fingerprints of all the fields from particular formulars are stored in [Ethereum
    "transfered":"86665612b0b232cb14f8605473d3a7e0d2f303ff7003c6f8916fdc4f"
 }
 ```
-Data are stored in custom contract, in its only sttic field, as serialized JSON string (in order to make contract elastic, in sense no ingerention in solidity is required to store additional data – all the required changes can be done by performing quite standard changes in model and serializer).
+Data is stored in a custom contract, in its only static field, as serialized JSON string (in order to make contract elastic, in sense no ingerention in solidity is required to store additional data). All the required changes can be done by performing quite standard changes in model and serializer).
 
 It is possible to switch to [ERC721](https://medium.com/crypto-currently/the-anatomy-of-erc721-e9db77abfc24) tokens with ease, but they seem to be a way too complex as it comes to the current needs.
 
 #### Prerequirements and technology
-API was developed in Python programing language, utilizing [Django REST framework](http://www.django-rest-framework.org/), as well as [web3.py](https://github.com/ethereum/web3.py) interface for interacting with the Ethereum blockchain and ecosystem. Apart from these and other python-related requirements (cf. _requirements.txt_ file) two additional application have two be installed in target system, namely:
-- the [solc Solidity compiler](http://solidity.readthedocs.io/en/v0.4.21/installing-solidity.html) (used to compile smart contract before they are signed and send),
-- [geth](https://geth.ethereum.org/) or equivalent interface for running a full ethereum node (since contract has to be signed using private key, for security purposes external services such as [Infura](https://infura.io/) do not provide this functionality).
+API was developed in Python programming language, utilizing [Django REST framework](http://www.django-rest-framework.org/), as well as [web3.py](https://github.com/ethereum/web3.py) interface for interacting with the Ethereum blockchain and ecosystem. Apart from these and other python-related requirements (cf. _requirements.txt_ file) two additional applications have to be installed in target system, namely:
+- the [solc Solidity compiler](http://solidity.readthedocs.io/en/v0.4.21/installing-solidity.html) (used to compile smart contracts before they are signed and sent),
+- [geth](https://geth.ethereum.org/) or equivalent interface for running a Full Ethereum Node (since contract has to be signed using a private key, for security purposes external services such as [Infura](https://infura.io/) do not provide this functionality).
 
-After installing geth type `geth account new` in order to create an account that will be used for sending contract-related transactions to network. Account's keyfile and password should be provided in configuration file for proper system functioning (type `geth account list` to find out where is the relevant keystore file located).
+After installing geth type `geth account new` in order to create an account that will be used for sending contract-related transactions to the network. Account's keyfile and password should be provided in configuration file for proper system functioning (type `geth account list` to find out where is the relevant keystore file located).
 
 #### Running, testing, API documentation
 In order to install python requirements type `pip install -r requirements.txt`.
@@ -39,11 +39,11 @@ Make sure _geth_ is running and all the required settings are provided in the co
 
 Then type simply run server using `python manage.py runserver` command in the main project directory. It will be available at [127.0.0.1:8000](http://127.0.0.1:8000/) by default, where the detailed API documentation should appear.
 
-![(View of API documentation)](docs/static/api.png)
+![(View of API documentation)] https://raw.githubusercontent.com/ubitquity/unanimity/8bc6583e6f4bbd7868ce7c10ed1927ac912cf753/api.png
 
 #### Setup from scratch
 
-Assuming you have ubuntu 18.04, run commands:
+Assuming you have Ubuntu 18.04 (or higher), run commands:
 
     sudo apt update
     sudo apt install python3-pip
@@ -161,7 +161,7 @@ File Upload is done in two steps:
 
 * first you need to upload file under POST <host>/files/
 * in the response you will get the needed `file_hash`
-* at this stage there will be an ssh connection triggered and the file metadata will reach the ubitquity.io servers
+* at this stage there will be an ssh connection triggered and the file metadata will reach your servers
 * you can use `file_hash` now in your contracts
 
 3. Setup SSH credentials, as we do not want to store SSH credentials in the repository, do:
@@ -213,8 +213,10 @@ Add following content to it
           - SSH_USERNAME=
           - SSH_PASSWORD=
           - UBITQUITY_HOST=45.32.1.3
-          - UBITQUITY_FILE_PATH=/var/www/html/deeds/aicdocs
+          - UBITQUITY_FILE_PATH=/var/www/html/unanimity/folder
           
+   - Change UBITQUITY_HOST to your server's IP address
+   - Change the UBITQUITY_FILE_PATH to your server's path
 
 Fill the empty settings with proper values (this is extremely important).
 The `UBITQUITY_` prefixed environment variables can be as they are.
