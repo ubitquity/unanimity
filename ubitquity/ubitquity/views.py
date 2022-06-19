@@ -88,7 +88,7 @@ class ApplicationForRegistrationListView(generics.ListCreateAPIView):
     Return a full list of Applications for Registration stored. An additional _tx_hash_ field is returned and contains ID of relevant ETH transaction. 
 
     post:
-    Create a new Application for Registration and store it as smart contract in Ethereum network.
+    Create a new Application for Registration and store it as a smart contract in Ethereum network.
     """
 
     queryset = ApplicationForRegistration.objects.all()
@@ -108,7 +108,7 @@ class SecurityGuaranteeListView(generics.ListCreateAPIView):
     Return a full list of Security Guarantees stored. An additional _tx_hash_ field is returned and contains ID of relevant ETH transaction. 
 
     post:
-    Create a new Security Guarantee and store it as smart contract in Ethereum network.
+    Create a new Security Guarantee and store it as a smart contract in Ethereum network.
     """
     queryset = SecurityGuarantee.objects.all()
     serializer_class = SecurityGuaranteeSerializer
@@ -130,7 +130,7 @@ class DocumentListCreateView(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        # push the serialized data to ubitquit servers
+        # push the serialized data to your server(s)
         data = DocumentSerializer(instance=serializer.instance).data
         if settings.SSH_ENABLED:
             client = SSHClient()
